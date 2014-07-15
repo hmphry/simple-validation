@@ -1,0 +1,36 @@
+body
+{
+	font-family: arial;
+	padding: 0 1rem;
+}
+
+input, textarea
+{
+	border: 1px solid #333;
+	box-sizing: border-box;
+	color: #333;
+	outline: none;
+	padding: 0.2rem 0.5rem;
+	width: 16rem;
+}
+
+input[type="submit"], button[type="submit"]
+{
+	background-color: #333;
+	color: #fff;
+}
+
+textarea
+{
+	min-height: 4rem;
+}
+
+.valid
+{
+	border-color: #5ca941;
+}
+
+.invalid
+{
+	border-color: #900;
+}
