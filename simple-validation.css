@@ -1,0 +1,16 @@
+input
+{
+	border: 1px solid #333;
+	outline: none;
+	padding: 0.2rem 0.5rem;
+}
+
+.valid
+{
+	border-color: #5ca941;
+}
+
+.invalid
+{
+	border-color: #900;
+}

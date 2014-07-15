@@ -1,83 +1,88 @@
 // Simple Validation - By Chad Humphrey - hmphry.com
-// Released under the MIT license
+// simple-validation.js - Completely Refactored By David Myers (drmyersii) - davidmyers.us
+// Open Sourced Under the MIT License
 
-// Get all forms
-var simpleValidation = function(){
+var ValidateForms = function () // validates all forms
+{
+	var DetermineValidation = function (input, condition) // This will set the input to valid if the passed condition is true, so please format the conditions accordingly.
+	{
+		if (condition)
+		{
+			input.removeClass('invalid');
+			input.addClass('valid');
+		}
+		else
+		{
+			input.removeClass('valid');
+			input.addClass('invalid');
+		}
+	}
 
-  var validateForm = $('form.validate-form');
+	var ValidateTextInput = function (input) // This will make sure there is something entered in the form.
+	{
+		DetermineValidation(input, ('' != input.val()));
+	}
 
-  // Gets all forms to Validate
-  validateForm.each(function(){
-    // Defining basic variables, bro
-    var validateForm = $(this);
-    var validate = {};
-    var validateThis = $(this).find('.validate');
-    var validatingLength = $(this).find('.validate').length;
-    var submitBtn = $(this).find('.submit');
+	var ValidateEmailInput = function (input) // This will make sure an email is formatted correctly.
+	{
+		var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    // For Loop Getting Elements to Validate
-    for(var i = 1; i <= validatingLength; i++){
-      // Adding Inputs to object, false for default
-      validate['input'+i] = false;
-    }
+		DetermineValidation(input, (input.val().match(regex)));
+	}
 
-    $('.validate').blur(function(){
-      var index =  $(this).prevAll().length+1;
-      var validateThisVal = $(this).val();
-      var validateThisType = $(this).attr('type');
+	var ValidateInput = function (input)
+	{
+		switch (input.attr('type')) // Check each type and send the input to the correlating validation method.
+		{
+			case 'text':
+				ValidateTextInput(input);
+				break;
 
-      // Checks if input type is email
-      if(validateThisType === "email"){
+			case 'email':
+				ValidateEmailInput(input);
+				break;
 
-        // Email regex
-        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        // Condition to see if Email exists
-        if(!validateThisVal.match(re)){
-          $(this).addClass('not-valid');
-          $(this).removeClass('is-valid');
-          return validate['input'+index] = false;
-        } else{
-          $(this).addClass('is-valid');
-          $(this).removeClass('not-valid');
-          return validate['input'+index] = true;
-        }
-      } else{
-        // Makes sure input is filled out
-        if(validateThisVal == ""){
-          $(this).addClass('not-valid');
-          $(this).removeClass('is-valid');
-          return validate['input'+index] = false;
-        } else{
-          $(this).addClass('is-valid');
-          $(this).removeClass('not-valid');
-          return validate['input'+index] = true;
-        }
-      }
-    });
+			default:
+				ValidateTextInput(input);
+				break;
+		}
+	}
 
+	var ValidateInputs = function (inputs) // Validates a group of inputs instead of one at a time.
+	{
+		inputs.each(function ()
+		{
+			var input = $(this);
 
-    validateForm.submit(function(event){
-      // Prevents Default
-      event.preventDefault();
+			ValidateInput(input);
+		});
+	}
 
-      // Logging form errors
-      var falseCtn = 0;
-      for(var i = 1; i <= validatingLength; i++){
-        if(validate['input'+i] == false){
-          falseCtn++;
-        }
-      }
+	// By default, it will not validate forms with the class "novalidate" or the "novalidate" attribute. If you want to disable html5 validation and still use this class, 
+	// just remove the [novalidate] attribute from the following line like so: var forms = $('form').not('.novalidate');
+	var forms = $('form').not('.novalidate,[novalidate]');
 
-      // Checking if any falses exist
-      if(falseCtn > 0){
-        // Do nothing
-      } else{
-        $(this).unbind('submit').submit();
-      }
-    });
+	forms.each(function () // Set the event handlers for each from individually. I may change this to set all handlers at once in the future...
+	{
+		var form = $(this);
+		var inputs = form.find('input[type="text"],input[type="email"],textarea').not('.novalidate,[novalidate]'); // This will find all the whitelisted form elements to validate and ignore the ones marked as "novalidate"
 
-  });
+		inputs.on('blur', function ()
+		{
+			var input = $(this);
 
-};
+			ValidateInput(input);
+		});
 
-simpleValidation();
+		form.on('submit', function (e) // Only set the handler on forms that need to be validated.
+		{
+			e.preventDefault(); // Prevents the default submission of the form. This lets us validate before actually submitting the form.
+			ValidateInputs(inputs); // Do a final validation on inputs since validation is only called on leaving an input and the user may not have left the last input.
+
+			if (!inputs.is('.invalid')) // If any inputs are marked as invalid, don't submit the form.
+				form.unbind('submit').trigger('submit'); // Unbind this form submit event and then resubmit since the form is valid.
+		});
+	});
+}
+
+ValidateForms();
