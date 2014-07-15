@@ -1,7 +1,7 @@
 simple-validation (refactored by David Myers)
 =================
 
-Extremely simple form validation with JQuery. Checks if text inputs are filled and if email inputs contain valid email on un-focus or submit. 
+Extremely simple form validation with JQuery. Checks if text inputs are filled and if email inputs contain valid email on un-focus or submit. I will soon add support for other elements as well!
 
 
 ~~Add `.validate-form` on forms that you'd like to be validated, and `.validate` on the inputs you'd liked checked. You can use this multiple times on the same page.~~
