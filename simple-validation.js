@@ -62,7 +62,7 @@ var ValidateForms = function () // validates all forms
 	// just remove the [novalidate] attribute from the following line like so: var forms = $('form').not('.novalidate');
 	var forms = $('form').not('.novalidate,[novalidate]');
 
-	forms.each(function () // Set the event handlers for each from individually. I may change this to set all handlers at once in the future...
+	forms.each(function () // Set the event handlers for each form individually. I may change this to set all handlers at once in the future...
 	{
 		var form = $(this);
 		var inputs = form.find('input[type="text"],input[type="email"],textarea').not('.novalidate,[novalidate]'); // This will find all the whitelisted form elements to validate and ignore the ones marked as "novalidate"
