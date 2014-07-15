@@ -32,19 +32,30 @@ var ValidateForms = function () // validates all forms
 
 	var ValidateInput = function (input)
 	{
-		switch (input.attr('type')) // Check each type and send the input to the correlating validation method.
+		if (input.is('input'))
 		{
-			case 'text':
-				ValidateTextInput(input);
-				break;
+			switch (input.attr('type')) // Check each type and send the input to the correlating validation method.
+			{
+				case 'text':
+					ValidateTextInput(input);
+					break;
 
-			case 'email':
-				ValidateEmailInput(input);
-				break;
+				case 'email':
+					ValidateEmailInput(input);
+					break;
 
-			default:
-				ValidateTextInput(input);
-				break;
+				default:
+					ValidateTextInput(input);
+					break;
+			}
+		}
+		else if (input.is('textarea'))
+		{
+			ValidateTextInput(input);
+		}
+		else
+		{
+			ValidateTextInput(input);
 		}
 	}
 
