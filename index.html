@@ -1,29 +1,52 @@
 <!doctype html>
 <html>
 <head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no">
 	<title>simple-validation.js</title>
+	
 	<link rel="stylesheet" href="simple-validation.css">
 </head>
 <body>
-	<h3>This form will validate</h3>
-	<form>
-		<input type="text" name="name" placeholder="name"><br>
-		<input type="email" name="email" placeholder="email"><br>
-		<input class="novalidate" type="text" name="ssn" placeholder="ssn (optional)"><br>
-		<textarea name="comment" placeholder="comment"></textarea><br>
+	<header>
+		<div class="wrap">
+			<h1>simple-validation.js (<a href="https://github.com/drmyersii/simple-validation">view on github</a>)</h1>
+			<h2>extremely simple form validation with jQuery</h2>
+		</div>
+	</header>
+	<main>
+		<div class="wrap">
+			<p>This is an extremely simple form validator that utilizes jQuery (I plan on having a version that doesn't depend on jQuery as well). This class is a work in progress. Currently, it only checks inputs (of type text or email) and textareas for validation. It only validates on un-focus or submit. I plan to add support for many more elements as well! This is meant to be easy to use and lightweight. Therefore, I will try to keep it as minimal as possible while still supporting full compatibility for html5 form elements and attributes.</p>
 
-		<input type="submit" value="submit">
-	</form>
+			<form>
+				<fieldset>
+					<legend>This form will validate</legend>
+					<input type="text" name="name" placeholder="name"><br>
+					<input type="email" name="email" placeholder="email"><br>
+					<input class="novalidate" type="text" name="ssn" placeholder="ssn (optional)"><br>
+					<textarea name="comment" placeholder="comment"></textarea><br>
 
-	<h3>This form will not validate</h3>
-	<form novalidate>
-		<input type="text" name="name" placeholder="name"><br>
-		<input type="email" name="email" placeholder="email"><br>
-		<input class="novalidate" type="text" name="ssn" placeholder="ssn (optional)"><br>
-		<textarea name="comment" placeholder="comment"></textarea><br>
+					<input type="submit" value="submit">
+				</fieldset>
+			</form>
 
-		<input type="submit" value="submit">
-	</form>
+			<form novalidate>
+				<fieldset>
+					<legend>This form will not validate</legend>
+					<input type="text" name="name" placeholder="name"><br>
+					<input type="email" name="email" placeholder="email"><br>
+					<input class="novalidate" type="text" name="ssn" placeholder="ssn (optional)"><br>
+					<textarea name="comment" placeholder="comment"></textarea><br>
+
+					<input type="submit" value="submit">
+				</fieldset>
+			</form>
+		</div>
+	</main>
+	<footer>
+		<div class="wrap">
+			<h4>This page is maintained by David Myers (<a href="https://github.com/drmyersii">drmyersii</a>)</h4>
+		</div>
+	</footer>
 
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="simple-validation.js"></script>
