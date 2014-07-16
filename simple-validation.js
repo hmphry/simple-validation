@@ -104,12 +104,75 @@
 				{
 					switch (formElement.attr('type')) // Check each type and send the input to the correlating validation method.
 					{
-						case 'text':
-							SimpleValidator.Helpers.ValidateFormElementText(formElement);
+						case 'button':
+							break;
+
+						case 'checkbox':
+							break;
+
+						case 'color':
+							break;
+
+						case 'date':
+							break;
+
+						case 'datetime':
+							break;
+
+						case 'datetime-local':
 							break;
 
 						case 'email':
 							SimpleValidator.Helpers.ValidateFormElementEmail(formElement);
+							break;
+
+						case 'file':
+							break;
+
+						case 'hidden':
+							break;
+
+						case 'image':
+							break;
+
+						case 'month':
+							break;
+
+						case 'number':
+							break;
+
+						case 'password':
+							break;
+
+						case 'radio':
+							break;
+
+						case 'range':
+							break;
+
+						case 'reset':
+							break;
+
+						case 'search':
+							break;
+
+						case 'submit':
+							break;
+
+						case 'tel':
+							break;
+
+						case 'text':
+							SimpleValidator.Helpers.ValidateFormElementText(formElement);
+							break;
+
+						case 'time':
+							break;
+
+						case 'url':
+							break;
+
+						case 'week':
 							break;
 
 						default:
