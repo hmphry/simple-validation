@@ -1,4 +1,4 @@
-##([View Github Page](http://chdhmphry.github.io/simple-validation))
+([View Github Page](http://chdhmphry.github.io/simple-validation))
 
 simple-validation.js
 ====================
