@@ -1,4 +1,4 @@
-simple-validation.js ([View Github Page](http://chdhmphry.github.io/simple-validation))
+simple-validation.js ##([View Github Page](http://chdhmphry.github.io/simple-validation))
 ====================
 Extremely simple form validation with jQuery. Checks if text inputs are filled and if email inputs contain valid email on un-focus or submit. I will soon add support for other elements as well!
 
