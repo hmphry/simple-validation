@@ -184,6 +184,10 @@
 				{
 					SimpleValidator.Helpers.ValidateFormElementText(formElement);
 				}
+				else if (formElement.is('select'))
+				{
+					
+				}
 				else
 				{
 					SimpleValidator.Helpers.ValidateFormElementText(formElement);
