@@ -57,6 +57,8 @@
 					if (!formElements.is('.invalid')) // If any formElements are marked as invalid, don't submit the form.
 						form.unbind('submit').trigger('submit'); // Unbind this form submit event and then resubmit since the form is valid.
 				});
+
+				form.attr('novalidate', true);
 			},
 
 			InitializeForms: function (forms)
@@ -206,18 +208,25 @@
 
 			ValidateFormElementEmail: function (formElement)
 			{
-				if (SimpleValidator.Config.Regex.Email.test(formElement.val()))
-					SimpleValidator.Helpers.MarkAsValid(formElement);
+				var isRequired = formElement.hasAttribute('required');
+
+				if (isRequired && !formElement.value)
+					return SimpleValidator.Helpers.MarkAsInvalid(formElement);
+
+				if (BareValidator.Config.Regex.Email.test(formElement.value) || !formElement.value)
+					return BareValidator.Helpers.MarkAsValid(formElement);
 				else
-					SimpleValidator.Helpers.MarkAsInvalid(formElement);
+					return BareValidator.Helpers.MarkAsInvalid(formElement);
 			},
 
 			ValidateFormElementText: function (formElement)
 			{
-				if ('' != formElement.val())
-					SimpleValidator.Helpers.MarkAsValid(formElement);
-				else
-					SimpleValidator.Helpers.MarkAsInvalid(formElement);
+				var isRequired = formElement.hasAttribute('required');
+
+				if (isRequired && !formElement.value)
+					return BareValidator.Helpers.MarkAsInvalid(formElement);
+
+				return BareValidator.Helpers.MarkAsValid(formElement);
 			}
 		},
 
