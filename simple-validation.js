@@ -18,7 +18,7 @@
 			Selectors: {
 				Forms: 'form',
 				FormsToIgnore: '.novalidate,[novalidate]',
-				FormElements: 'input[type="text"],input[type="email"],textarea',
+				FormElements: 'input,select,textarea',
 				FormElementsToIgnore: '.novalidate,[novalidate]'
 			}
 		},
@@ -107,9 +107,11 @@
 					switch (formElement.attr('type')) // Check each type and send the input to the correlating validation method.
 					{
 						case 'button':
+							// There is no reason to validate a button type, but I just wanted to have all the html5 types in here...
 							break;
 
 						case 'checkbox':
+
 							break;
 
 						case 'color':
@@ -206,6 +208,21 @@
 				});
 			},
 
+			ValidateFormElementCheckbox: function (formElement)
+			{
+				var isRequired = false;
+				var name = formElement.attr('name');
+				var family = formElement.closest(SimpleValidator.Config.Selectors.Forms).children('input[type="checkbox"][name="' + name + '"]').not(SimpleValidator.Config.Selectors.FormElementsToIgnore);
+
+				if (family.has('[required]'))
+					isRequired = true;
+
+				if (isRequired && !family.has(':checked'))
+					return SimpleValidator.Helpers.MarkAsInvalid(formElement);
+				else
+					return SimpleValidator.Helpers.MarkAsValid(formElement);
+			},
+
 			ValidateFormElementEmail: function (formElement)
 			{
 				var isRequired = formElement.hasAttribute('required');
@@ -213,10 +230,10 @@
 				if (isRequired && !formElement.value)
 					return SimpleValidator.Helpers.MarkAsInvalid(formElement);
 
-				if (BareValidator.Config.Regex.Email.test(formElement.value) || !formElement.value)
-					return BareValidator.Helpers.MarkAsValid(formElement);
+				if (SimpleValidator.Config.Regex.Email.test(formElement.value) || !formElement.value)
+					return SimpleValidator.Helpers.MarkAsValid(formElement);
 				else
-					return BareValidator.Helpers.MarkAsInvalid(formElement);
+					return SimpleValidator.Helpers.MarkAsInvalid(formElement);
 			},
 
 			ValidateFormElementText: function (formElement)
@@ -224,9 +241,9 @@
 				var isRequired = formElement.hasAttribute('required');
 
 				if (isRequired && !formElement.value)
-					return BareValidator.Helpers.MarkAsInvalid(formElement);
+					return SimpleValidator.Helpers.MarkAsInvalid(formElement);
 
-				return BareValidator.Helpers.MarkAsValid(formElement);
+				return SimpleValidator.Helpers.MarkAsValid(formElement);
 			}
 		},
 
