@@ -78,7 +78,7 @@ fieldset
 	border: none;
 }
 
-input, textarea
+button, input, textarea
 {
 	border: 1px solid #333;
 	box-sizing: border-box;
@@ -87,10 +87,15 @@ input, textarea
 	width: 16rem;
 }
 
-input[type="submit"], button[type="submit"]
+input[type="submit"], button
 {
 	background-color: #333;
 	color: #fff;
+}
+
+input[type="checkbox"], input[type="radio"]
+{
+	width: auto;
 }
 
 textarea
@@ -114,8 +119,16 @@ a
 {
 	border-color: #5ca941;
 }
+	input[type="checkbox"].valid + span
+	{
+		color: #5ca941;
+	}
 
 .invalid
 {
 	border-color: #900;
 }
+	input[type="checkbox"].invalid + span
+	{
+		color: #900;
+	}

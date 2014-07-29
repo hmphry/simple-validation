@@ -20,10 +20,16 @@
 			<form>
 				<fieldset>
 					<legend>This form will validate</legend>
-					<input type="text" name="name" placeholder="name"><br>
-					<input type="email" name="email" placeholder="email"><br>
-					<input class="novalidate" type="text" name="ssn" placeholder="ssn (optional)"><br>
-					<textarea name="comment" placeholder="comment"></textarea><br>
+					<input type="text" name="name" placeholder="name" required><br>
+					<input type="email" name="email" placeholder="email" required><br>
+					<input class="novalidate" type="email" name="email_verify" placeholder="verify email (optional) (not validated)"><br>
+					<input type="text" name="ssn" placeholder="ssn (optional)"><br>
+					<textarea name="comment" placeholder="comment" required></textarea><br>
+
+					<legend>Select all that you like: </legend>
+					<label><input type="checkbox" name="things_that_you_like" required><span>Dogs</span></label><br>
+					<label><input type="checkbox" name="things_that_you_like"><span>Cats</span></label><br>
+					<label><input type="checkbox" name="things_that_you_like"><span>Turtles</span></label><br>
 
 					<input type="submit" value="submit">
 				</fieldset>

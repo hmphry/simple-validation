@@ -111,7 +111,7 @@
 							break;
 
 						case 'checkbox':
-
+							SimpleValidator.Helpers.ValidateFormElementCheckbox(formElement);
 							break;
 
 						case 'color':
@@ -212,12 +212,16 @@
 			{
 				var isRequired = false;
 				var name = formElement.attr('name');
-				var family = formElement.closest(SimpleValidator.Config.Selectors.Forms).children('input[type="checkbox"][name="' + name + '"]').not(SimpleValidator.Config.Selectors.FormElementsToIgnore);
+				var family = formElement.closest(SimpleValidator.Config.Selectors.Forms).find('input[type="checkbox"][name="' + name + '"]').not(SimpleValidator.Config.Selectors.FormElementsToIgnore);
 
-				if (family.has('[required]'))
+				console.log(family);
+				console.log(formElement.is(':checked'));
+				console.log(family.is(':checked'));
+
+				if (formElement.is('[required]') || family.is('[required]'))
 					isRequired = true;
 
-				if (isRequired && !family.has(':checked'))
+				if (isRequired && !formElement.is(':checked') && !family.is(':checked'))
 					return SimpleValidator.Helpers.MarkAsInvalid(formElement);
 				else
 					return SimpleValidator.Helpers.MarkAsValid(formElement);
@@ -225,7 +229,7 @@
 
 			ValidateFormElementEmail: function (formElement)
 			{
-				var isRequired = formElement.hasAttribute('required');
+				var isRequired = formElement.is('[required]');
 
 				if (isRequired && !formElement.value)
 					return SimpleValidator.Helpers.MarkAsInvalid(formElement);
@@ -238,7 +242,7 @@
 
 			ValidateFormElementText: function (formElement)
 			{
-				var isRequired = formElement.hasAttribute('required');
+				var isRequired = formElement.is('[required]');
 
 				if (isRequired && !formElement.value)
 					return SimpleValidator.Helpers.MarkAsInvalid(formElement);
